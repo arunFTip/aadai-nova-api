@@ -20,6 +20,8 @@ class RolePermissionSeeder extends Seeder
             'user.create',
             'user.update',
             'user.delete',
+
+            'activity-log.view',
         ];
 
         foreach ($permissions as $permission) {
@@ -34,6 +36,8 @@ class RolePermissionSeeder extends Seeder
         $admin->syncPermissions([
             'admin.view',
             'user.view',
+            'activity-log.view',
+
         ]);
         $user->syncPermissions([
             'user.view',

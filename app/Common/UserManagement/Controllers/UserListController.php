@@ -9,12 +9,30 @@ use App\Common\Authentication\Resources\UserResource;
 
 class UserListController extends BaseController
 {
-    public function __invoke(): JsonResponse
-    {
-        $users = User::latest()->paginate(10);
+   public function __invoke(): JsonResponse
+{
+    $search = request('search');
+    $perPage = request('per_page', 10);
+    $sortBy = request('sort_by', 'id');
+$sortDirection = request('sort_direction', 'desc');
 
-        return $this->successResponse([
-            'users' => UserResource::collection($users),
-        ], 'Users fetched successfully');
-    }
+    $users = User::query()
+        ->when($search, function ($query) use ($search) {
+            $query
+                ->where('name', 'like', "%{$search}%")
+                ->orWhere('email', 'like', "%{$search}%");
+        })
+        ->orderBy($sortBy, $sortDirection)
+        ->paginate($perPage);
+
+    return $this->successResponse([
+        'users' => UserResource::collection($users->items()),
+        'pagination' => [
+            'current_page' => $users->currentPage(),
+            'last_page' => $users->lastPage(),
+            'per_page' => $users->perPage(),
+            'total' => $users->total(),
+        ],
+    ], 'Users fetched successfully');
+}
 }

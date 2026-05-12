@@ -17,6 +17,7 @@ class RegisterUserAction
 
         $user->assignRole('user');
 
+
         return $user;
     }
 }
