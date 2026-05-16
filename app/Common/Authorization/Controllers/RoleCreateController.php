@@ -4,7 +4,7 @@ namespace App\Common\Authorization\Controllers;
 
 use App\Platform\Base\BaseController;
 use Illuminate\Http\JsonResponse;
-use Spatie\Permission\Models\Role;
+use App\Common\Authorization\Models\Role;
 use App\Common\Authorization\Requests\CreateRoleRequest;
 
 class RoleCreateController extends BaseController
@@ -16,6 +16,16 @@ class RoleCreateController extends BaseController
         ]);
 
         $role->syncPermissions($request->permissions ?? []);
+
+        activity()
+            ->causedBy($request->user())
+            ->performedOn($role)
+            ->withProperties([
+                'attributes' => [
+                    'name' => $role->name,
+                ],
+            ])
+            ->log('created');
 
         return $this->successResponse([
             'role' => $role->load('permissions'),

@@ -21,6 +21,7 @@ class UpdateUserRequest extends FormRequest
                 'email',
                 Rule::unique('users', 'email')->ignore($this->route('user')),
             ],
+            'status' => ['required', 'in:active,inactive'],
         ];
     }
 }

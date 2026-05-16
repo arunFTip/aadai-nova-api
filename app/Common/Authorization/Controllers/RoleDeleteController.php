@@ -5,7 +5,7 @@ namespace App\Common\Authorization\Controllers;
 use App\Platform\Base\BaseController;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
-use Spatie\Permission\Models\Role;
+use App\Common\Authorization\Models\Role;
 
 class RoleDeleteController extends BaseController
 {
@@ -18,6 +18,16 @@ class RoleDeleteController extends BaseController
                 422
             );
         }
+
+        activity()
+            ->causedBy(request()->user())
+            ->performedOn($role)
+            ->withProperties([
+                'old' => [
+                    'name' => $role->name,
+                ],
+            ])
+            ->log('deleted');
 
         DB::table('role_has_permissions')
             ->where('role_id', $role->id)

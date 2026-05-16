@@ -18,6 +18,12 @@ class LoginUserAction
             ]);
         }
 
+        if ($user->status !== 'active') {
+            throw ValidationException::withMessages([
+                'email' => ['Your account is inactive. Please contact admin.'],
+            ]);
+        }
+
         $token = $user->createToken('aadai-nova-token')->plainTextToken;
 
         return [

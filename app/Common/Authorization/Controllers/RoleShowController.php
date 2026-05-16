@@ -4,7 +4,7 @@ namespace App\Common\Authorization\Controllers;
 
 use App\Platform\Base\BaseController;
 use Illuminate\Http\JsonResponse;
-use Spatie\Permission\Models\Role;
+use App\Common\Authorization\Models\Role;
 
 class RoleShowController extends BaseController
 {
