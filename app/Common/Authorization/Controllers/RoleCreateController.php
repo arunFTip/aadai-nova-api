@@ -13,6 +13,8 @@ class RoleCreateController extends BaseController
     {
         $role = Role::create([
             'name' => $request->name,
+            'description' => $request->description,
+
         ]);
 
         $role->syncPermissions($request->permissions ?? []);

@@ -16,6 +16,8 @@ class RoleUpdateController extends BaseController
         $oldName = $role->name;
         $role->update([
             'name' => $request->name,
+            'description' => $request->description,
+
         ]);
 
         $role->syncPermissions($request->permissions ?? []);

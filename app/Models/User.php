@@ -11,6 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
+use App\Models\UserPreference;
 
 class User extends Authenticatable
 {
@@ -30,7 +31,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-            'status',
+        'status',
 
     ];
 
@@ -58,10 +59,14 @@ class User extends Authenticatable
     }
 
     public function getActivitylogOptions(): LogOptions
-{
-    return LogOptions::defaults()
-        ->logOnly(['name', 'email'])
-        ->logOnlyDirty()
-        ->dontSubmitEmptyLogs();
-}
+    {
+        return LogOptions::defaults()
+            ->logOnly(['name', 'email'])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs();
+    }
+    public function preferences()
+    {
+        return $this->hasMany(UserPreference::class);
+    }
 }
