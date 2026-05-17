@@ -13,8 +13,14 @@ class Role extends SpatieRole
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logOnly(['name'])
+            ->logOnly([
+                'name',
+                'description',
+            ])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs();
     }
 }
+
+
+//TODO: Spatie activitylog does not auto-track pivot sync changes well- missed Permissions

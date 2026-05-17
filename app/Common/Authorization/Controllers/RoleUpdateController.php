@@ -21,18 +21,7 @@ class RoleUpdateController extends BaseController
         ]);
 
         $role->syncPermissions($request->permissions ?? []);
-        activity()
-            ->causedBy($request->user())
-            ->performedOn($role)
-            ->withProperties([
-                'old' => [
-                    'name' => $oldName,
-                ],
-                'attributes' => [
-                    'name' => $role->name,
-                ],
-            ])
-            ->log('updated');
+
 
         return $this->successResponse([
             'role' => $role->load('permissions'),

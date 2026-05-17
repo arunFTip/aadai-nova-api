@@ -19,15 +19,7 @@ class RoleDeleteController extends BaseController
             );
         }
 
-        activity()
-            ->causedBy(request()->user())
-            ->performedOn($role)
-            ->withProperties([
-                'old' => [
-                    'name' => $role->name,
-                ],
-            ])
-            ->log('deleted');
+
 
         DB::table('role_has_permissions')
             ->where('role_id', $role->id)

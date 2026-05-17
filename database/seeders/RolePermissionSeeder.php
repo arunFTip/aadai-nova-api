@@ -22,11 +22,37 @@ class RolePermissionSeeder extends Seeder
             'user.delete',
 
             'activity-log.view',
+
+            'settings.view',
+            'settings.localization.manage',
+            'settings.security.manage',
+            'settings.preferences.manage',
+            'settings.branding.manage',
+            'settings.notifications.manage',
+            'settings.integrations.manage',
         ];
 
         foreach ($permissions as $permission) {
-            Permission::firstOrCreate(['name' => $permission]);
+            Permission::firstOrCreate([
+                'name' => $permission,
+                'guard_name' => 'sanctum',
+            ]);
         }
+
+        $superAdmin = Role::firstOrCreate([
+            'name' => 'super-admin',
+            'guard_name' => 'sanctum',
+        ]);
+        $admin = Role::firstOrCreate([
+            'name' => 'admin',
+            'guard_name' => 'sanctum',
+        ]);
+        $user = Role::firstOrCreate([
+            'name' => 'user',
+            'guard_name' => 'sanctum',
+        ]);
+
+        $superAdmin->syncPermissions($permissions);
 
         $superAdmin = Role::firstOrCreate(['name' => 'super-admin']);
         $admin = Role::firstOrCreate(['name' => 'admin']);

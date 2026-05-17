@@ -19,15 +19,7 @@ class RoleCreateController extends BaseController
 
         $role->syncPermissions($request->permissions ?? []);
 
-        activity()
-            ->causedBy($request->user())
-            ->performedOn($role)
-            ->withProperties([
-                'attributes' => [
-                    'name' => $role->name,
-                ],
-            ])
-            ->log('created');
+
 
         return $this->successResponse([
             'role' => $role->load('permissions'),

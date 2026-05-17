@@ -61,7 +61,11 @@ class User extends Authenticatable
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logOnly(['name', 'email'])
+            ->logOnly([
+                'name',
+                'email',
+                'status',
+            ])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs();
     }
@@ -70,3 +74,5 @@ class User extends Authenticatable
         return $this->hasMany(UserPreference::class);
     }
 }
+
+//TODO: Spatie activitylog does not auto-track pivot sync changes well- missed Profile
