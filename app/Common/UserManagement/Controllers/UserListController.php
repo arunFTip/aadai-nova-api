@@ -36,6 +36,8 @@ class UserListController extends BaseController
                 'last_page' => $users->lastPage(),
                 'per_page' => $users->perPage(),
                 'total' => $users->total(),
+                'from' => $users->firstItem(),
+                'to' => $users->lastItem(),
             ],
         ], 'Users fetched successfully');
     }

@@ -63,6 +63,8 @@ class ActivityLogListController extends BaseController
                 'last_page' => $logs->lastPage(),
                 'per_page' => $logs->perPage(),
                 'total' => $logs->total(),
+                'from' => $logs->firstItem(),
+                'to' => $logs->lastItem(),
             ],
         ], 'Activity logs fetched successfully');
     }
