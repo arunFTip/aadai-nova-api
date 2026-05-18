@@ -73,3 +73,49 @@ Never inline validation.
 ```
 
 ```
+
+## Frontend Settings Architecture
+
+Frontend preferences are loaded through:
+
+src/stores/preferenceStore.js
+
+Formatting helpers use:
+
+- getPreference()
+- fallback defaults
+
+Localization-aware helpers:
+
+- formatDate
+- formatTime
+- formatDateTime
+- formatCurrency
+- formatNumber
+
+Goal:
+
+Future settings resolution should support:
+
+User Preferences
+↓
+Tenant Policies
+↓
+Tenant Settings
+↓
+System Defaults
+
+## Planned Settings Features
+
+Upcoming settings areas:
+
+- Tenant branding
+- Theme customization
+- Notification preferences
+- Dashboard personalization
+- Language preferences
+- Feature toggles
+- Tenant-aware menus
+- Runtime settings resolver
+- Tenant policy enforcement UI
+- Module enable/disable management

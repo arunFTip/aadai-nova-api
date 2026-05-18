@@ -21,4 +21,5 @@ require base_path('app/Common/Admin/Routes/api.php');
 require base_path('app/Common/UserManagement/Routes/api.php');
 require app_path('Common/Dashboard/Routes/api.php');
 require app_path('Common/UserPreferences/Routes/api.php');
+require app_path('Common/Settings/Routes/api.php');
 
