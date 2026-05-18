@@ -14,10 +14,11 @@ class UserRoleUpdateController extends BaseController
         User $user
     ): JsonResponse {
         $request->validate([
-            'roles' => ['nullable', 'array'],
+            'roles' => ['required', 'array', 'min:1'],
+            'roles.*' => ['required', 'string', 'exists:roles,name'],
         ]);
 
-        $user->syncRoles($request->roles ?? []);
+        $user->syncRoles($request->roles);
 
         return $this->successResponse([
             'user' => $user->load('roles'),

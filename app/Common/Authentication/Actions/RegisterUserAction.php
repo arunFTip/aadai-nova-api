@@ -9,15 +9,11 @@ class RegisterUserAction
 {
     public function execute(array $data): User
     {
-        $user = User::create([
+        return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'status' => $data['status'] ?? 'active',
         ]);
-
-        $user->assignRole('user');
-
-
-        return $user;
     }
 }
